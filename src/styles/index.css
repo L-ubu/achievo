@@ -1,0 +1,156 @@
+@import "tailwindcss";
+
+@custom-variant light (.light &);
+
+@theme {
+  --color-gold: #d4a843;
+  --color-gold-dim: #a07830;
+  --color-gold-glow: #f0d070;
+  --color-stone: #6b6b7b;
+  --color-parchment: #f5f0e8;
+  --color-ink: #1a1a2e;
+  --color-void: #0c0c0f;
+  --color-void-card: #141418;
+  --color-void-border: #1e1e28;
+  --color-parchment-card: #ebe5d8;
+  --color-parchment-border: #d5cfc2;
+  --font-heading: "Cinzel", serif;
+}
+
+/* Base transitions for theme switching */
+html {
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+/* Dark mode (default) */
+html:not(.light) {
+  background-color: var(--color-void);
+  color: #e8e8ec;
+}
+
+html.light {
+  background-color: var(--color-parchment);
+  color: var(--color-ink);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-stone); border-radius: 2px; }
+
+/* Stagger fade-in for achievement cards */
+@keyframes card-enter {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card-stagger {
+  animation: card-enter 400ms ease both;
+}
+
+/* Gold shimmer sweep on completion */
+@keyframes shimmer-sweep {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.shimmer-active {
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(212, 168, 67, 0.3) 40%,
+    rgba(240, 208, 112, 0.5) 50%,
+    rgba(212, 168, 67, 0.3) 60%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer-sweep 600ms ease forwards;
+}
+
+/* Particle burst on toggle */
+@keyframes particle-burst {
+  0% { opacity: 1; transform: translate(0, 0) scale(1); }
+  100% { opacity: 0; transform: translate(var(--px), var(--py)) scale(0); }
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  pointer-events: none;
+  animation: particle-burst 500ms ease-out forwards;
+}
+
+/* XP bar glow pulse */
+@keyframes bar-glow {
+  0%, 100% { box-shadow: none; }
+  50% { box-shadow: 0 0 8px var(--color-gold); }
+}
+
+.bar-pulse {
+  animation: bar-glow 600ms ease;
+}
+
+/* Tarot God unlock */
+@keyframes god-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}
+
+@keyframes god-reveal {
+  0% { transform: scale(1); border-color: transparent; }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); border-color: var(--color-gold); }
+}
+
+@keyframes gold-flash {
+  0% { opacity: 0; }
+  30% { opacity: 0.15; }
+  100% { opacity: 0; }
+}
+
+@keyframes gold-rain {
+  0% { transform: translateY(-10px); opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+/* Toggle press animation */
+@keyframes toggle-press {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.88); }
+  100% { transform: scale(1); }
+}
+
+.toggle-press {
+  animation: toggle-press 200ms ease;
+}
+
+/* Sync panel slide */
+@keyframes slide-up {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.slide-up {
+  animation: slide-up 300ms ease;
+}
+
+/* QR scale-in */
+@keyframes scale-bounce {
+  0% { transform: scale(0); opacity: 0; }
+  70% { transform: scale(1.05); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.scale-bounce {
+  animation: scale-bounce 400ms ease;
+}
+
+/* View transition names */
+::view-transition-old(achievement-card),
+::view-transition-new(achievement-card) {
+  animation-duration: 300ms;
+}
