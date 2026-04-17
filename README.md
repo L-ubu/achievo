@@ -4,6 +4,8 @@ Offline-first PWA achievement tracker for a hiking/camping trip. Track progress 
 
 Built with Vite, React 19, TypeScript, and Tailwind CSS 4.
 
+![Screenshot](assets/screenshot.png)
+
 ## Features
 
 - 59 achievements across 3 categories (General Quest Log, Tarot Trials, AI Experiments)
